@@ -1,36 +1,95 @@
-# 📊 Sales Insights Data Analysis Project
+<div align="center">
+  <h1 align="center">🚀 Sales Insights Data Analysis</h1>
 
-## Project Overview
-This project is a data analysis dashboard built using **Tableau** and **SQL**. The goal is to provide actionable insights into sales performance, helping stakeholders make data-driven decisions. The dashboard analyzes sales trends, market performance, and revenue distribution.
+  <h3>
+    <a href="#-live-dashboard">View Dashboard</a>
+    <span> | </span>
+    <a href="#-sql-analysis">View SQL Queries</a>
+  </h3>
 
-## 🛠️ Tech Stack
-* **Visualization:** Tableau Public / Desktop
-* **Database:** MySQL (Relational Database)
-* **Data Modeling:** Star Schema
+  <p align="center">
+    <img src="https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=Tableau&logoColor=white" />
+    <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />
+    <img src="https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=Power%20BI&logoColor=black" />
+  </p>
+  
+  <br />
+  
+  <img src="https://media.giphy.com/media/LmqMkEnVqFpIXS6T7i/giphy.gif" width="600" alt="Data Analysis Animation">
+  
+  <p align="center">
+    <i>An end-to-end data analysis project to unlock sales insights using <b>SQL</b> and <b>Tableau</b>.</i>
+  </p>
+</div>
 
-## 📂 Data Structure & Modeling
-The data is modeled using a **Star Schema** architecture to ensure efficient query performance in Tableau.
+---
 
-* **Fact Table:**
-    * `transactions` (Contains transactional data like sales amount, quantity, order dates).
-* **Dimension Tables:**
-    * `customers` (Customer details).
-    * `products` (Product codes and categories).
-    * `markets` (Regional market information).
-    * `date` (Time-period details).
+## 📖 Table of Contents
+- [Project Overview](#-project-overview)
+- [Interactive Dashboards](#-interactive-dashboards)
+- [SQL Analysis & Data Model](#-sql-analysis--data-model)
+- [Key Insights](#-key-insights)
+- [Tech Stack](#-tech-stack)
 
-## ⚙️ Data Transformation (ETL)
-Based on the raw data analysis, several transformations were performed to ensure data accuracy:
-1.  **Currency Normalization:** The raw sales data included transactions in multiple currencies (e.g., USD and INR). A custom calculation (`Normalized value`) was created to convert all currency into a distinct standard currency for accurate aggregation.
-2.  **Data Cleaning:** Filtered out invalid sales values (e.g., negative or zero values) to prevent skewing the analysis.
+---
 
-## 📈 Key Insights (To be updated)
-* *Revenue by Market*
-* *Sales Quantity trends over time*
-* *Top 5 Customers and Products*
+## 🧐 Project Overview
+This project tackles the challenge of tracking sales performance in a rapidly growing hardware market. By analyzing transactional data, the dashboard helps stakeholders track key performance indicators (KPIs) like **Revenue**, **Sales Quantity**, and **Profit Margins** across different regions and time periods.
 
-## 🚀 How to Run
-1.  Download the `.twb` or `.twbx` file from this repository.
-2.  Open the file in **Tableau Desktop** or **Tableau Public**.
-3.  Ensure the data connection to the MySQL database is active (or use the extracted data source if provided).
+> **Goal:** To move beyond static reports and provide an interactive tool for data-driven decision making.
 
+---
+
+## 📊 Interactive Dashboards
+
+<details>
+<summary><b>📈 Dashboard 1: Revenue Analysis (Click to Expand)</b></summary>
+<br>
+
+> **Focus:** Top-line performance and volume tracking.
+
+![Revenue Dashboard]([INSERT LINK TO YOUR REVENUE DASHBOARD IMAGE HERE])
+
+* **Total Revenue:** 985M
+* **Sales Quantity:** 2.4M
+* **Key Insight:** **Delhi NCR** and **Mumbai** are the leading revenue contributors, but revenue has seen a declining trend in 2020.
+</details>
+
+<details>
+<summary><b>💰 Dashboard 2: Profit Analysis (Click to Expand)</b></summary>
+<br>
+
+> **Focus:** Bottom-line health and profitability.
+
+![Profit Dashboard]([INSERT LINK TO YOUR PROFIT DASHBOARD IMAGE HERE])
+
+* **Total Profit:** 24.7M
+* **Market Profitability:** **Surat** leads with a **4.86%** profit margin, while **Kanpur** is operating at a loss (**-0.5%**).
+* **Customer Segmentation:** **75.6%** of sales come from Brick & Mortar stores.
+</details>
+
+---
+
+## ⚙️ SQL Analysis & Data Model
+
+We used **MySQL** for the initial data exploration and ETL (Extract, Transform, Load). The data is structured in a **Star Schema**.
+
+### 🌟 Star Schema Structure
+* **Fact Table:** `transactions` (Sales amounts, dates, currency)
+* **Dimensions:** `customers`, `products`, `markets`, `date`
+
+<details>
+<summary><b>🔍 Click to see Example SQL Queries</b></summary>
+
+```sql
+-- 1. Calculating Total Revenue for 2020
+SELECT SUM(transactions.sales_amount) 
+FROM transactions 
+INNER JOIN date ON transactions.order_date = date.date 
+WHERE date.year = 2020;
+
+-- 2. Finding Markets with Negative Profit
+SELECT market_code, SUM(profit_margin) as total_profit
+FROM transactions
+GROUP BY market_code
+HAVING total_profit < 0;
