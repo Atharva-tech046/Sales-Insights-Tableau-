@@ -1,95 +1,79 @@
 <div align="center">
-  <h1 align="center">🚀 Sales Insights Data Analysis</h1>
+
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Q0...../giphy.gif" width="100%" height="20" alt="divider"/>
+
+  <h1>💼 Sales Insights Data Analysis</h1>
+
+  <p>
+    <a href="https://www.tableau.com/">
+      <img src="https://img.shields.io/badge/TABLEAU-E97627?style=for-the-badge&logo=Tableau&logoColor=white" />
+    </a>
+    <a href="https://www.mysql.com/">
+      <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+    </a>
+    <a href="#">
+      <img src="https://img.shields.io/badge/ETL-Data_Cleaning-green?style=for-the-badge" />
+    </a>
+  </p>
 
   <h3>
-    <a href="#-live-dashboard">View Dashboard</a>
-    <span> | </span>
-    <a href="#-sql-analysis">View SQL Queries</a>
+    <i>"Unlocking the hidden patterns in sales data to drive profitability."</i>
   </h3>
 
-  <p align="center">
-    <img src="https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=Tableau&logoColor=white" />
-    <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />
-    <img src="https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=Power%20BI&logoColor=black" />
-  </p>
-  
-  <br />
-  
-  <img src="https://media.giphy.com/media/LmqMkEnVqFpIXS6T7i/giphy.gif" width="600" alt="Data Analysis Animation">
-  
-  <p align="center">
-    <i>An end-to-end data analysis project to unlock sales insights using <b>SQL</b> and <b>Tableau</b>.</i>
-  </p>
+  <img src="https://media.giphy.com/media/LmqMkEnVqFpIXS6T7i/giphy.gif" width="600" alt="Dashboard Demo">
+
 </div>
 
----
+<br />
 
-## 📖 Table of Contents
-- [Project Overview](#-project-overview)
-- [Interactive Dashboards](#-interactive-dashboards)
-- [SQL Analysis & Data Model](#-sql-analysis--data-model)
-- [Key Insights](#-key-insights)
-- [Tech Stack](#-tech-stack)
+## 🧐 The Business Problem
+A computer hardware manufacturer is facing challenges in tracking their sales in a dynamically growing market. The sales director is currently relying on verbal reports and excel sheets, which are leading to:
+* ❌ Lack of visualization of real-time data.
+* ❌ Difficulty in tracking regional performance.
+* ❌ Inability to identify declining profit margins in specific markets.
 
----
-
-## 🧐 Project Overview
-This project tackles the challenge of tracking sales performance in a rapidly growing hardware market. By analyzing transactional data, the dashboard helps stakeholders track key performance indicators (KPIs) like **Revenue**, **Sales Quantity**, and **Profit Margins** across different regions and time periods.
-
-> **Goal:** To move beyond static reports and provide an interactive tool for data-driven decision making.
+**The Solution:** An interactive **Tableau Dashboard** powered by a **MySQL** database to visualize Revenue, Profit, and Sales Trends.
 
 ---
 
-## 📊 Interactive Dashboards
+## 📂 Interactive Dashboard Views
+*Click the arrows below to expand and view the analysis.*
 
 <details>
-<summary><b>📈 Dashboard 1: Revenue Analysis (Click to Expand)</b></summary>
+<summary><b>💰 View 1: Revenue Analysis (Click to Expand)</b></summary>
 <br>
 
-> **Focus:** Top-line performance and volume tracking.
+> **Goal:** Track total volume and revenue trends.
 
-![Revenue Dashboard]([INSERT LINK TO YOUR REVENUE DASHBOARD IMAGE HERE])
+![Revenue Screenshot]([INSERT LINK TO YOUR REVENUE DASHBOARD IMAGE])
 
-* **Total Revenue:** 985M
-* **Sales Quantity:** 2.4M
-* **Key Insight:** **Delhi NCR** and **Mumbai** are the leading revenue contributors, but revenue has seen a declining trend in 2020.
+* **Total Revenue:** ₹985M
+* **Total Sales Qty:** 2.4M
+* **Top Markets:** **Delhi NCR** and **Mumbai** dominate the revenue charts.
+* **Trend Alert:** Observed a significant decline in sales volume in mid-2020.
 </details>
 
 <details>
-<summary><b>💰 Dashboard 2: Profit Analysis (Click to Expand)</b></summary>
+<summary><b>📉 View 2: Profitability & Margins (Click to Expand)</b></summary>
 <br>
 
-> **Focus:** Bottom-line health and profitability.
+> **Goal:** Identify where we are actually making money.
 
-![Profit Dashboard]([INSERT LINK TO YOUR PROFIT DASHBOARD IMAGE HERE])
+![Profit Screenshot]([INSERT LINK TO YOUR PROFIT DASHBOARD IMAGE])
 
-* **Total Profit:** 24.7M
-* **Market Profitability:** **Surat** leads with a **4.86%** profit margin, while **Kanpur** is operating at a loss (**-0.5%**).
-* **Customer Segmentation:** **75.6%** of sales come from Brick & Mortar stores.
+* **Profit Margin King:** **Surat** has the highest profit margin (**4.86%**) despite lower volume.
+* **Loss Maker:** **Kanpur** is currently operating at a negative margin (**-0.5%**).
+* **Customer Insight:** **75.6%** of revenue comes from **Brick & Mortar** stores, indicating a slow adoption of E-Commerce (**24.4%**).
 </details>
 
 ---
 
-## ⚙️ SQL Analysis & Data Model
+## ⚙️ Technical Architecture (Star Schema)
+The data was modeled in MySQL using a Star Schema for optimized query performance.
 
-We used **MySQL** for the initial data exploration and ETL (Extract, Transform, Load). The data is structured in a **Star Schema**.
-
-### 🌟 Star Schema Structure
-* **Fact Table:** `transactions` (Sales amounts, dates, currency)
-* **Dimensions:** `customers`, `products`, `markets`, `date`
-
-<details>
-<summary><b>🔍 Click to see Example SQL Queries</b></summary>
-
-```sql
--- 1. Calculating Total Revenue for 2020
-SELECT SUM(transactions.sales_amount) 
-FROM transactions 
-INNER JOIN date ON transactions.order_date = date.date 
-WHERE date.year = 2020;
-
--- 2. Finding Markets with Negative Profit
-SELECT market_code, SUM(profit_margin) as total_profit
-FROM transactions
-GROUP BY market_code
-HAVING total_profit < 0;
+```mermaid
+graph TD;
+    Transactions[FACT: Transactions] --> Customers[DIM: Customers];
+    Transactions --> Products[DIM: Products];
+    Transactions --> Markets[DIM: Markets];
+    Transactions --> Date[DIM: Date];
