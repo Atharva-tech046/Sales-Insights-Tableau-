@@ -1,33 +1,15 @@
-<div align="center">
+# 💼 Sales Insights Data Analysis Project
 
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Q0...../giphy.gif" width="100%" height="20" alt="divider"/>
+![Tableau](https://img.shields.io/badge/TABLEAU-E97627?style=for-the-badge&logo=Tableau&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
 
-  <h1>💼 Sales Insights Data Analysis</h1>
+> **"Unlocking hidden patterns in sales data to drive profitability and operational efficiency."**
 
-  <p>
-    <a href="https://www.tableau.com/">
-      <img src="https://img.shields.io/badge/TABLEAU-E97627?style=for-the-badge&logo=Tableau&logoColor=white" />
-    </a>
-    <a href="https://www.mysql.com/">
-      <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
-    </a>
-    <a href="#">
-      <img src="https://img.shields.io/badge/ETL-Data_Cleaning-green?style=for-the-badge" />
-    </a>
-  </p>
-
-  <h3>
-    <i>"Unlocking the hidden patterns in sales data to drive profitability."</i>
-  </h3>
-
-  <img src="https://media.giphy.com/media/LmqMkEnVqFpIXS6T7i/giphy.gif" width="600" alt="Dashboard Demo">
-
-</div>
-
-<br />
+---
 
 ## 🧐 The Business Problem
-A computer hardware manufacturer is facing challenges in tracking their sales in a dynamically growing market. The sales director is currently relying on verbal reports and excel sheets, which are leading to:
+A computer hardware manufacturer is facing challenges in tracking their sales in a dynamically growing market. The sales director is currently relying on verbal reports and Excel sheets, leading to:
 * ❌ Lack of visualization of real-time data.
 * ❌ Difficulty in tracking regional performance.
 * ❌ Inability to identify declining profit margins in specific markets.
@@ -36,44 +18,52 @@ A computer hardware manufacturer is facing challenges in tracking their sales in
 
 ---
 
-## 📂 Interactive Dashboard Views
-*Click the arrows below to expand and view the analysis.*
+## 📊 Interactive Dashboard Views
+*Below are the insights generated from the project.*
 
-<details>
-<summary><b>💰 View 1: Revenue Analysis (Click to Expand)</b></summary>
-<br>
+### 1. Revenue Analysis Dashboard
+> **Goal:** Track top-line performance and volume trends.
 
-> **Goal:** Track total volume and revenue trends.
+![Revenue Analysis]([INSERT YOUR REVENUE DASHBOARD IMAGE LINK HERE])
 
-![Revenue Screenshot]([INSERT LINK TO YOUR REVENUE DASHBOARD IMAGE])
-
-* **Total Revenue:** ₹985M
+* **Total Revenue:** 985M
 * **Total Sales Qty:** 2.4M
-* **Top Markets:** **Delhi NCR** and **Mumbai** dominate the revenue charts.
-* **Trend Alert:** Observed a significant decline in sales volume in mid-2020.
-</details>
+* **Key Insight:** **Delhi NCR** and **Mumbai** are the undisputed leaders in revenue generation.
+* **Trend Alert:** Sales quantity shows a noticeable decline in 2020, warranting investigation into supply chain or market demand shifts.
 
-<details>
-<summary><b>📉 View 2: Profitability & Margins (Click to Expand)</b></summary>
-<br>
+### 2. Profit Analysis Dashboard
+> **Goal:** Identify bottom-line health and profitability hotspots.
 
-> **Goal:** Identify where we are actually making money.
+![Profit Analysis]([INSERT YOUR PROFIT DASHBOARD IMAGE LINK HERE])
 
-![Profit Screenshot]([INSERT LINK TO YOUR PROFIT DASHBOARD IMAGE])
-
-* **Profit Margin King:** **Surat** has the highest profit margin (**4.86%**) despite lower volume.
-* **Loss Maker:** **Kanpur** is currently operating at a negative margin (**-0.5%**).
-* **Customer Insight:** **75.6%** of revenue comes from **Brick & Mortar** stores, indicating a slow adoption of E-Commerce (**24.4%**).
-</details>
+* **Profit Margin King:** **Surat** yields the highest profit margin (**4.86%**) despite having lower sales volume than major cities.
+* **Loss Warning:** **Kanpur** is currently operating at a loss with a negative margin of **-0.5%**.
+* **Customer Segmentation:** **75.6%** of revenue is driven by **Brick & Mortar** stores, indicating a massive opportunity to expand the **E-Commerce** (24.4%) channel.
 
 ---
 
-## ⚙️ Technical Architecture (Star Schema)
-The data was modeled in MySQL using a Star Schema for optimized query performance.
+## ⚙️ Data Architecture (Star Schema)
+The data is modeled in MySQL using a **Star Schema** to ensure optimal query performance for the dashboard.
 
-```mermaid
-graph TD;
-    Transactions[FACT: Transactions] --> Customers[DIM: Customers];
-    Transactions --> Products[DIM: Products];
-    Transactions --> Markets[DIM: Markets];
-    Transactions --> Date[DIM: Date];
+* **Fact Table:** `transactions` (contains `sales_amount`, `order_date`, `currency`, `profit_margin`)
+* **Dimension Tables:** `customers`, `products`, `markets`, `date`
+
+---
+
+## 🧹 SQL & Data Transformation (ETL)
+Raw data often contains discrepancies. Key SQL transformations included:
+
+1.  **Currency Normalization:** The dataset included transactions in both **USD** and **INR**. I used SQL to convert all USD transactions to INR using a static exchange rate calculation.
+2.  **Data Cleaning:** Filtered out invalid records (e.g., negative sales amounts or market codes like 'Mark097' that did not exist in the master table).
+
+```sql
+-- Example: Cleaning and Normalizing Currency
+SELECT 
+    transactions.product_code, 
+    customer.custmer_name, 
+    CASE 
+        WHEN transactions.currency = 'USD' THEN transactions.sales_amount * 75 
+        ELSE transactions.sales_amount 
+    END as normalized_sales_amount
+FROM transactions
+INNER JOIN customers ON transactions.customer_code = customers.customer_code;
