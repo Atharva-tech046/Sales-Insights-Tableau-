@@ -24,7 +24,7 @@ A computer hardware manufacturer is facing challenges in tracking their sales in
 ### 1. Revenue Analysis Dashboard
 > **Goal:** Track top-line performance and volume trends.
 
-![Revenue Analysis]([INSERT YOUR REVENUE DASHBOARD IMAGE LINK HERE])
+![Revenue Analysis Dashboard](Total%20Revenue%20Dashboard.jpg)
 
 * **Total Revenue:** 985M
 * **Total Sales Qty:** 2.4M
@@ -34,7 +34,7 @@ A computer hardware manufacturer is facing challenges in tracking their sales in
 ### 2. Profit Analysis Dashboard
 > **Goal:** Identify bottom-line health and profitability hotspots.
 
-![Profit Analysis]([INSERT YOUR PROFIT DASHBOARD IMAGE LINK HERE])
+![Profit Margin Dashboard](Profit%20Margin%20Dashboard.jpg)
 
 * **Profit Margin King:** **Surat** yields the highest profit margin (**4.86%**) despite having lower sales volume than major cities.
 * **Loss Warning:** **Kanpur** is currently operating at a loss with a negative margin of **-0.5%**.
@@ -60,7 +60,7 @@ Raw data often contains discrepancies. Key SQL transformations included:
 -- Example: Cleaning and Normalizing Currency
 SELECT 
     transactions.product_code, 
-    customer.custmer_name, 
+    customers.customer_name, 
     CASE 
         WHEN transactions.currency = 'USD' THEN transactions.sales_amount * 75 
         ELSE transactions.sales_amount 
