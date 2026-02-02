@@ -24,7 +24,8 @@ A computer hardware manufacturer is facing challenges in tracking their sales in
 ### 1. Revenue Analysis Dashboard
 > **Goal:** Track top-line performance and volume trends.
 
-![Revenue Analysis Dashboard](Total%20Revenue%20Dashboard.jpg)
+![Revenue Analysis Dashboard](<img width="1261" height="803" alt="Total Revenue Dashboard" src="https://github.com/user-attachments/assets/1aa1834f-b3a1-4584-8f29-2a670e3c3c7a" />
+)
 
 * **Total Revenue:** 985M
 * **Total Sales Qty:** 2.4M
@@ -34,7 +35,7 @@ A computer hardware manufacturer is facing challenges in tracking their sales in
 ### 2. Profit Analysis Dashboard
 > **Goal:** Identify bottom-line health and profitability hotspots.
 
-![Profit Margin Dashboard](Profit%20Margin%20Dashboard.jpg)
+![Profit Margin Dashboard](<img width="1250" height="772" alt="Profit Margin Dashboard" src="https://github.com/user-attachments/assets/34ac95a7-7700-4a9c-8ad6-420a0c3112a5" />)
 
 * **Profit Margin King:** **Surat** yields the highest profit margin (**4.86%**) despite having lower sales volume than major cities.
 * **Loss Warning:** **Kanpur** is currently operating at a loss with a negative margin of **-0.5%**.
